@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import StarRating from 'react-native-star-rating';
+import FirebaseService from '../services/FirebaseService';
 
 
 export default class StartUpScreen extends React.Component {
@@ -19,6 +20,23 @@ export default class StartUpScreen extends React.Component {
 
     onStarRatingPress(key, rating) {
         this.setState({ [key]: rating });
+    }
+
+    onSave() {
+        const { navigation } = this.props;
+        const {
+            proposal,
+            pitch,
+            development,
+        } = this.state;
+        
+        const name = navigation.getParam('item').name;
+        FirebaseService.pushData('votes', {
+            name,
+            proposal,
+            pitch,
+            development,
+        });
     }
 
     render(){
@@ -65,6 +83,7 @@ export default class StartUpScreen extends React.Component {
                     <Button
                         style={{ margin: 8 }}
                         title="Salvar"
+                        onPress={() => this.onSave()}
                     />
                 </ScrollView>
             </View>
