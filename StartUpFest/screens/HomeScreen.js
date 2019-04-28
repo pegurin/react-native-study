@@ -3,8 +3,9 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import CardView from '../components/CardView';
 import RateScreen from './RateScreen';
-import { createStackNavigator, createAppContainer, StackNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {
+    ActivityIndicator,
     FlatList,
     ScrollView,
     StyleSheet,
@@ -43,7 +44,7 @@ class HomeScreen extends React.Component {
         return(
             <Query query={GET_STARTUPS}>
                 {({ loading, error, data }) => {
-                if (loading) return <Text>Loading...</Text>;
+                if (loading) return <ActivityIndicator style={styles.loader} size="large" color="#0000ff"/>;
                 if (error) return <Text>`Error! ${error.message}`</Text>;
 
                 return (
@@ -68,6 +69,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 8,
         backgroundColor: 'blue',
+    },
+    loader: {
+      flex: 1,
+      justifyContent: 'center'
     },
 });
 

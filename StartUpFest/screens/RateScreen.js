@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import FirebaseService from '../services/FirebaseService';
 
@@ -30,13 +30,22 @@ export default class StartUpScreen extends React.Component {
             development,
         } = this.state;
         
-        const name = navigation.getParam('item').name;
-        FirebaseService.pushData('votes', {
-            name,
+        const item = navigation.getParam('item');
+        const vote = {
+            name: item.name,
+            imageUrl: item.imageUrl,
+            segment: item.Segment.name,
             proposal,
             pitch,
             development,
-        });
+        }
+        const ref = FirebaseService.pushData('votes', vote);
+        ToastAndroid.showWithGravity(
+            'Voto salvo com sucesso!',
+            ToastAndroid.SHORT,
+            ToastAndroid.TOP,
+            );
+        navigation.goBack();
     }
 
     render(){
@@ -49,7 +58,7 @@ export default class StartUpScreen extends React.Component {
                     <Image
                         style={ styles.image }
                         source={{ uri: item.imageUrl }}
-                        />
+                    />
                     <Text style={ styles.textName }>{ item.name }</Text>
                     <Text style={ styles.textSegment }>{ item.Segment.name }</Text>
                     <Text style={ styles.textDescription }>{ item.description }</Text>
@@ -81,7 +90,7 @@ export default class StartUpScreen extends React.Component {
                         selectedStar= {(rating) => this.onStarRatingPress('development', rating)}
                     />
                     <Button
-                        style={{ margin: 8 }}
+                        style={ styles.buttonSave }
                         title="Salvar"
                         onPress={() => this.onSave()}
                     />
@@ -127,5 +136,9 @@ const styles = StyleSheet.create({
     starRating: {
         alignSelf: 'center',
         width: 250,
+    },
+    buttonSave: {
+        marginLeft: 20,
+        marginRight: 20,
     },
 });
