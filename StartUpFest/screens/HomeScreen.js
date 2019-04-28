@@ -16,17 +16,16 @@ import {
 const GET_STARTUPS = gql`
 {
     allStartups {
-      name
-      imageUrl
-      segment_id
-      teamCount
-      annualReceipt
-      description
-      Segment {
         name
-      }
+        imageUrl
+        teamCount
+        annualReceipt
+        description
+        Segment {
+            name
+        }
     }
-  }
+}
 `;
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -34,10 +33,10 @@ class HomeScreen extends React.Component {
     };
 
     _renderItem = ({ item }) => (
-            <CardView
-                item={ item }
-                navigation={ this.props.navigation }
-            />
+        <CardView
+            item={ item }
+            navigation={ this.props.navigation }
+        />
     );
 
     render() {

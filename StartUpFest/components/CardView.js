@@ -7,33 +7,27 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
-export default class CardView extends React.PureComponent {
-    
-    _getScreen(item) {
-        const { navigate } = this.props.navigation;
-
-        navigate('Rate', { item: item });
-    }
-
-    render() {
-        const { item } = this.props;
-
-        return(
-            <TouchableHighlight underlayColor= 'transparent' onPress= {() => this._getScreen(item)}>
-                <View style={styles.card}>
-                    <Image
-                        style={styles.startUpImage}
-                        source={{uri: item.imageUrl}}
-                    />
-                    <View>
-                        <Text>{ item.name }</Text>
-                        <Text>{ item.Segment.name }</Text>
-                    </View>
+const CardView = ({ item, navigation }) => {
+    const getScreen = (item) => {
+        navigation.navigate('Rate', { item: item });
+    };
+    return(
+        <TouchableHighlight underlayColor= 'transparent' onPress= {() => getScreen(item)}>
+            <View style={styles.card}>
+                <Image
+                    style={styles.startUpImage}
+                    source={{uri: item.imageUrl}}
+                />
+                <View>
+                    <Text>{ item.name }</Text>
+                    <Text>{ item.Segment.name }</Text>
                 </View>
-            </TouchableHighlight>
-        );
-    }
-}
+            </View>
+        </TouchableHighlight>
+    );
+};
+
+export default CardView;
 
 const styles = StyleSheet.create({
     card: {

@@ -27,24 +27,24 @@ export default class ResultsScreen extends React.Component {
         );
     }
 
-    sortByRate(result) {
-        const sortProposal = result.sort((a, b) => Number(b.proposal - Number(a.proposal)));
+    sortByRate = (result) => {
+        const sortProposal = result.sort((a, b) => Number(b.proposal.toPrecision(2) - Number(a.proposal.toPrecision(2))));
         this.setState({
             resultProposal: sortProposal,
         });
         
-        const sortPitch = result.sort((a, b) => Number(b.pitch) - Number(a.pitch));
+        const sortPitch = result.sort((a, b) => Number(b.pitch.toPrecision(2)) - Number(a.pitch.toPrecision(2)));
         this.setState({
             resultPitch: sortPitch,
         });
 
-        const sortDevelopment = result.sort((a, b) => Number(b.development) - Number(a.development));        
+        const sortDevelopment = result.sort((a, b) => Number(b.development.toPrecision(2)) - Number(a.development.toPrecision(2)));        
         this.setState({
             resultDevelopment: sortDevelopment,
         });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         FirebaseService.getDataList('results', (results) => this.sortByRate(results));
     }
     render() {

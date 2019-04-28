@@ -89,11 +89,12 @@ export default class StartUpScreen extends React.Component {
                         rating={development}
                         selectedStar= {(rating) => this.onStarRatingPress('development', rating)}
                     />
-                    <Button
-                        style={ styles.buttonSave }
-                        title="Salvar"
-                        onPress={() => this.onSave()}
-                    />
+                    <View style={ styles.buttonSave }>
+                        <Button
+                            title="Salvar"
+                            onPress={() => this.onSave()}
+                        />
+                    </View>
                 </ScrollView>
             </View>
         );
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
         width: 250,
     },
     buttonSave: {
-        marginLeft: 20,
-        marginRight: 20,
+        margin: 8,
+        marginTop: 14,
     },
 });

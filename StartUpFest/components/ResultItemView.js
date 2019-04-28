@@ -2,33 +2,32 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 import StarRating from 'react-native-star-rating';
 
-export default class ResultItemView extends React.PureComponent {
-    render(){
-        const { item, position, rate } = this.props;
-        return(
-            <View style={styles.card}>
-                <Text style={styles.textPosition}>{position+1}º</Text>
-                <Image style={styles.image}
-                    source={{uri: item.imageUrl}}
-                />
-                <View style={styles.viewDetails}>
-                    <Text style={styles.textName}>{item.name}</Text>
-                    <Text style={styles.textSegment}>{item.segment}</Text>
-                    <View style={styles.viewRate}>
-                        <StarRating
-                            containerStyle={ styles.starRating }
-                            starSize={25}
-                            disabled={true}
-                            maxStars={5}
-                            rating={rate}
-                        />
-                        <Text style={styles.textRate}>{rate}/5</Text>
-                    </View>
+const ResultItemView = ({ item, position, rate }) => {
+    return(
+        <View style={styles.card}>
+            <Text style={styles.textPosition}>{position+1}º</Text>
+            <Image style={styles.image}
+                source={{uri: item.imageUrl}}
+            />
+            <View style={styles.viewDetails}>
+                <Text style={styles.textName}>{item.name}</Text>
+                <Text style={styles.textSegment}>{item.segment}</Text>
+                <View style={styles.viewRate}>
+                    <StarRating
+                        containerStyle={ styles.starRating }
+                        starSize={25}
+                        disabled={true}
+                        maxStars={5}
+                        rating={Number(rate)}
+                    />
+                    <Text style={styles.textRate}>{rate}/5</Text>
                 </View>
             </View>
-        );
-    }
-}
+        </View>
+    );
+};
+
+export default ResultItemView;
 
 const styles = StyleSheet.create({
     card: {
